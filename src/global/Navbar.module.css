@@ -16,6 +16,7 @@
 
 .notificationBadge {
   position: relative;
+  cursor: pointer;
 }
 
 .badge {

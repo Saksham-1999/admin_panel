@@ -9,10 +9,10 @@ import { useUser } from "../../hooks/UserData";
 
 
 function Profile() {
-  // const { user } = useUser();
+  const { user } = useUser();
 
   // for dummy data only
-  const user = UserData;
+  // const user = UserData;
 
   return (
     // <></>

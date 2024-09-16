@@ -8,8 +8,8 @@ import { validateEmail } from "../../Validation";
 
 function EditProfile() {
   const [isLoading, setIsLoading] = useState(false);
-  //   const { user } = useUser();
-  const [user, setUser] = useState(UserData);
+    const { user } = useUser();
+  // const [user, setUser] = useState(UserData);
   const [formData, setFormData] = useState({
     email: user?.email,
     full_name: user?.full_name,
