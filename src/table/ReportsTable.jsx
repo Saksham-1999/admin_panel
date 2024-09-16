@@ -5,6 +5,8 @@ import { useTable, usePagination } from "react-table";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import mockData, { licenseReportData } from "../mockData";
 import DateFormatter from "../components/Common/DateFormater";
+import { toast } from "react-toastify";
+import { FaPrint } from "react-icons/fa";
 
 function ReportsTable() {
   const [data, setData] = useState([]);
@@ -12,7 +14,7 @@ function ReportsTable() {
 
   const handleDownloadReport = (licenseId) => {
     // Implement your download logic here
-    alert("Download button clicked!");
+    toast.success("License report downloaded successfully");
   };
 
   const simpleColumns = useMemo(
@@ -46,7 +48,7 @@ function ReportsTable() {
                 transition: "background-color 0.3s",
               }}
             >
-              Print
+              <FaPrint />
             </button>
           );
         },
@@ -76,17 +78,17 @@ function ReportsTable() {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   // useEffect(() => {
-  //   // Simulate API call with setTimeout
-  //   setTimeout(() => {
-  //     setData(mockData);
-  //     setLoading(false);
-  //   }, 1000);
+  //   fetchData();
   // }, []);
+
+  useEffect(() => {
+    // Simulate API call with setTimeout
+    setTimeout(() => {
+      setData(mockData);
+      setLoading(false);
+    }, 1000);
+  }, []);
 
   const {
     getTableProps,
