@@ -7,6 +7,7 @@ import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import mockData, { licenseReportData } from "../mockData";
 import DateFormatter from "../components/Common/DateFormater";
 import LicenseHistoryModal from "./LicenseHistoryModal";
+import { toast } from "react-toastify";
 
 function SimpleTable() {
   const [data, setData] = useState([]);
@@ -116,11 +117,14 @@ function SimpleTable() {
       );
 
       if (!response.ok) {
+        toast.error("Error allocating license");
         throw new Error("Network response was not ok");
       }
+      toast.success("License allocated successfully");
       await fetchData();
     } catch (error) {
       console.error("Error:", error);
+      toast.error("Error allocating license");
     }
   };
 
@@ -141,12 +145,14 @@ function SimpleTable() {
       );
 
       if (!response.ok) {
+        toast.error("Error revoking license");
         throw new Error("Network response was not ok");
       }
-
+      toast.success("License revoked successfully");
       await fetchData();
     } catch (error) {
       console.error("Error:", error);
+      toast.error("Error revoking license");
     }
   };
 
