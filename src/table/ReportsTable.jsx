@@ -78,17 +78,17 @@ function ReportsTable() {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   // useEffect(() => {
-  //   // Simulate API call with setTimeout
-  //   setTimeout(() => {
-  //     setData(mockData);
-  //     setLoading(false);
-  //   }, 1000);
+  //   fetchData();
   // }, []);
+
+  useEffect(() => {
+    // Simulate API call with setTimeout
+    setTimeout(() => {
+      setData(mockData);
+      setLoading(false);
+    }, 1000);
+  }, []);
 
   const {
     getTableProps,

@@ -26,14 +26,10 @@ export const AuthProvider = ({ children }) => {
     console.log("333333333", token);
   }, [token]);
 
-  useEffect(() => {
-    localStorage.setItem("userId", userId);
-  }, [userId]);
 
-  const login = (authToken, id) => {
+  const login = (authToken) => {
     setIsAuthenticated(true);
     setToken(authToken);
-    setUserId(id);
   };
 
   const logout = () => {

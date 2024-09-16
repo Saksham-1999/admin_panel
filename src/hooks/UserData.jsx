@@ -2,13 +2,18 @@ import { useState, useEffect } from "react";
 
 export const useUser = () => {
   const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState(null);
+
+
+  useEffect(() => {
+    console.log("user data", user);
+  }, [user]);
 
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem("token");
-        const userId = localStorage.getItem("userId");
         const response = await fetch(
           `http://127.0.0.1:8000/profile/user_id/${userId}/`,
           {
@@ -33,6 +38,8 @@ export const useUser = () => {
 
     fetchUser();
   }, []);
+
+  
 
   return { user };
 };

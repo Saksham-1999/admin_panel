@@ -56,7 +56,6 @@ const Login = () => {
     }
 
     try {
-      console.log(JSON.stringify({ email: userId, password: password }));
       const response = await fetch("http://127.0.0.1:8000/login/", {
         method: "POST",
         headers: {
@@ -74,6 +73,7 @@ const Login = () => {
       console.log(data);
       if (data.token) {
         login(data.token);
+        localStorage.setItem("userId", data.user.id);
         toast.success("Login successful!");
         navigate("/dashboard");
       } else {
