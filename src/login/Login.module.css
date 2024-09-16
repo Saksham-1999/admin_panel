@@ -1,0 +1,146 @@
+/* Login.module.css */
+.mainContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    background: navy;
+    position: relative;
+}
+
+.imageContainer {
+    position: absolute;
+    top: 40%;
+    left: 0;
+    width: 80%;
+    height: 80%;
+    z-index: 1;
+    transform: rotate(-23deg) translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none; /* To make sure the image doesn't interfere with form interactions */
+}
+
+.imageContainer img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: auto auto 80px auto;
+    margin-top: 80px;
+    margin-left: 800px;
+    width: 350px;
+    background-color: white;
+    padding-top: 20px;
+    border: 2px solid #ddd; /* Add a solid border */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.backButton{
+    cursor: pointer;
+    width: 40px;
+    height: 20px;
+}
+
+.error {
+    color: red;
+    margin: 10px;
+    margin-left: 25px;
+  }
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.text {
+    color: navy;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.underline {
+    width: 50px;
+    height: 3px;
+    background: navy;
+    border-radius: 9px;
+}
+
+.inputs {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 300px;
+    height: 40px;
+    background: #eaeaea;
+    border-radius: 6px;
+}
+
+.input img {
+    margin: 0px 30px;
+}
+
+.inputs input {
+    height: 50px;
+    width: 400px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #797979;
+    font-size: 15px;
+}
+
+.forgetPassword {
+    padding-left: 62px;
+    margin-top: 27px;
+    color: #797979;
+    font-size: 13px;
+}
+
+.forgetPassword span {
+    color: navy;
+    cursor: pointer;
+}
+
+.submitContainer {
+    display: flex;
+    gap: 30px;
+    margin: 50px auto;
+}
+
+.submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 39px;
+    color: #fff;
+    background: navy;
+    border-radius: 50px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.gray {
+    background: #eaeaea;
+    color: #676767;
+}

@@ -1,0 +1,16 @@
+.copyright {
+    position: fixed;  /* Positions the div at the bottom */
+    bottom: 0;  /* Sets the bottom position to 0 */
+    left: 165px;  /* Sets left margin to 165px */
+    right: 0;  /* Stretches the div to the right end */
+    height: 13px;  /* Sets the height to 25px */
+    background-color: #f1f1f1;  /* Optional: Sets a light gray background color */
+    display: flex;  /* Enables horizontal alignment */
+    justify-content: center;  /* Centers the content horizontally */
+    align-items: center;  /* Centers the content vertically */
+  }
+  
+  .copyright p {
+    margin: 0;  /* Removes default margin from the paragraph */
+    font-size: 12px;  /* Optional: Sets the font size */
+  }

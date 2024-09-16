@@ -1,0 +1,13 @@
+.workspace {
+    position: absolute;
+    width: calc(100% - 165px);
+    height: calc(100% - 43px); /* Adjust the height as needed, considering the top and bottom offsets */
+    top: 30px;
+    left: 165px;
+    bottom: 13px;    
+    right: 0;
+    background-color: #bbeaf5;
+    overflow-y: auto; /* Enable vertical scrolling when content exceeds height */
+}
+
+

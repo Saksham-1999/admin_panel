@@ -1,0 +1,38 @@
+.card{
+    border: 1px solid hsla(0, 0%, 80%);
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px hsla(0, 0%, 0%, 0.1);
+    position: relative;
+    padding: 10px;
+    margin: 1%;
+    display: inline-block;
+    top:6%;
+    left: 2.5%;
+    width: 16%;
+    min-width: 180px;
+    max-height: 70px;
+    height: auto;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.card h5{  
+    padding-left: 5%;
+    color: grey;
+    font-size: 13px;
+}
+
+.card h2{
+    padding-top: 5%;
+    padding-left: 5%;
+    font-size: 25px;  
+}
+
+.card img{
+    position: absolute;
+    align-items: end;
+    left: 70%;
+    height : 39px;
+    width: 39px;
+    top: 23%;
+}

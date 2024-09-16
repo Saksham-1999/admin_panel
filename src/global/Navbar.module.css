@@ -1,0 +1,134 @@
+.navbar {
+  position: absolute;
+  display: flex;
+  width: calc(100% - 165px);
+  /* Adjust width to fit content */
+
+  right: 0;
+  top: 0;
+  height: 30px;
+  background-color: rgb(249, 243, 243);
+  justify-content: flex-end;
+  align-items: center;
+  margin: 0 auto;
+  /* Center horizontally */
+}
+
+.notificationBadge {
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: -23px;
+  right: -3px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 0px 3px;
+  font-size: 10px;
+  max-height: fit-content;
+  max-width: 75%;
+}
+
+.bell img {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+
+/* .language_div{
+    display: flex;
+    align-items: center; 
+    margin-left: 2%;
+} */
+
+/* .indian_flag img{
+    margin-right: 4px;
+    width: 22px;
+    height: 22px;
+}    */
+
+/* .down_arrow img{
+    margin-top: 5px;
+    width: 15px;
+    height: 15px; 
+} */
+
+.userDiv {
+  display: flex;
+  align-items: center;
+  margin-right: 4%;
+  margin-left: 2%;
+  cursor: pointer;
+}
+
+.userinfo {
+  margin-right: 10px;
+}
+
+.user img {
+  margin-right: 6px;
+  width: 22px;
+  height: 22px;
+}
+
+.dropdownContainer {
+  position: relative;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 25px;
+  right: 0;
+  z-index: 1000;
+  display: none;
+  min-width: 127px;
+  /* Set a minimum width */
+  background-color: #fff;
+  /* Set background color */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* Add a shadow for a better visual */
+  border-radius: 4px;
+  /* Add border radius */
+  font-size: 14px;
+  /* Set font size */
+}
+
+.dropdownMenu.active {
+  display: block;
+}
+
+.dropdownMenu.left {
+  right: 0;
+  left: auto;
+}
+
+.dropdownMenu.left ul {
+  transform: translateX(-100%);
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  padding: 7px 10px;
+  cursor: pointer;
+}
+
+.dropdownItem:hover {
+  background-color: #eee;
+}
+
+.dropdownItem img {
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+}
+
+.dropdownItem a {
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  /* Set font size */
+}

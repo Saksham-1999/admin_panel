@@ -1,0 +1,10 @@
+.contacts {
+    position: relative; /* Add this to establish a positioning context */
+  }
+
+.contacts h1{
+    position: absolute;
+    left:5px;
+    top: 5px;
+    font-size: 27px;
+} 

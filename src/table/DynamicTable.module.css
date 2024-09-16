@@ -1,0 +1,82 @@
+/* src/components/DynamicTable.module.css */
+
+.tableContainer {
+    margin: 40px 2px;
+    overflow-x: auto;
+  }
+  
+  .tableWrapper {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0; /* No margin to include pagination inside */
+  }
+  
+  .table th,
+  .table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+    background-color: #f9f9f9; /* Same color for all columns */
+  }
+  
+  .table th {
+    background-color: #4CAF50; /* Different color for header */
+    color: white;
+    font-weight: bold;
+  }
+  
+  .table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Ensure even rows have the same color */
+  }
+  
+  .table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 10px 0;
+    margin: 0; /* Remove margin to fit inside table wrapper */
+    background-color: #f9f9f9; /* Match table row color */
+  }
+  
+  .pagination li {
+    margin: 0 5px;
+  }
+  
+  .pagination li a {
+    text-decoration: none;
+    color: #007bff;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .pagination li a:hover {
+    background-color: #ddd;
+  }
+  
+  .pagination li.active a {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+  }
+  
+  .reportLink {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .reportLink:hover {
+    text-decoration: underline;
+  }
+  
