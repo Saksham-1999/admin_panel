@@ -36,10 +36,10 @@ function Navbar() {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
 
-  // const { user } = useUser();
+  const { user } = useUser();
 
   // for dummy data only
-  const user = UserData;
+  // const user = UserData;
 
   const handleClick = () => {
     setChangePasswordPopup(false);

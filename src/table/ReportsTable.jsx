@@ -1,20 +1,19 @@
 // src/components/SimpleTable.js
-import LicenseForm from "../popup/licenseFormPopup/LicenseForm";
 import React, { useEffect, useMemo, useState } from "react";
 import styles from "./Table.module.css";
 import { useTable, usePagination } from "react-table";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import mockData, { licenseReportData } from "../mockData";
 import DateFormatter from "../components/Common/DateFormater";
-import LicenseHistoryModal from "./LicenseHistoryModal";
 
-function SimpleTable() {
+function ReportsTable() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showLicensePopup, setShowLicensePopup] = useState(false);
-  const [selectedRow, setSelectedRow] = useState(null);
-  const [showHistoryModal, setShowHistoryModal] = useState(false);
-  const [selectedLicenseHistory, setSelectedLicenseHistory] = useState(null);
+
+  const handleDownloadReport = (licenseId) => {
+    // Implement your download logic here
+    alert("Download button clicked!");
+  };
 
   const simpleColumns = useMemo(
     () => [
@@ -32,26 +31,22 @@ function SimpleTable() {
         Cell: ({ value }) => <DateFormatter dateString={value} />,
       },
       {
-        Header: "Issue",
-        accessor: "issue",
+        Header: "Print",
+        accessor: "print",
         Cell: ({ row }) => {
-          const pluginId = row.original.plugins[0]?.plugin_id;
-          const email = row.original.allocated_to;
-          const buttonText = !pluginId && !email ? "Allocate" : "Revoke";
-
           return (
             <button
+              onClick={() => handleDownloadReport(row.original.license_id)}
               style={{
-                backgroundColor: buttonText === "Revoke" ? "red" : "green",
+                backgroundColor: "green",
                 color: "white",
                 padding: "3px 5px",
                 cursor: "pointer",
                 borderRadius: "5px",
                 transition: "background-color 0.3s",
               }}
-              onClick={() => handleIssueClick(row.original, buttonText)}
             >
-              {buttonText}
+              Print
             </button>
           );
         },
@@ -59,11 +54,6 @@ function SimpleTable() {
     ],
     []
   );
-
-  const handleIssueClick = (row, buttonText) => {
-    setShowLicensePopup(true);
-    setSelectedRow({ ...row, buttonText });
-  };
 
   const fetchData = async () => {
     try {
@@ -97,94 +87,6 @@ function SimpleTable() {
   //     setLoading(false);
   //   }, 1000);
   // }, []);
-
-  const handleSubmit = async (email, licenseId) => {
-    setShowLicensePopup(false);
-    try {
-      const token = localStorage.getItem("token");
-
-      const response = await fetch(
-        `http://127.0.0.1:8000/licenses/${licenseId}/allocate/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Token ${token}`,
-          },
-          body: JSON.stringify({ allocated_to: email, license: licenseId }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      await fetchData();
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
-  const handleRevoke = async (email, licenseId) => {
-    setShowLicensePopup(false);
-    try {
-      const token = localStorage.getItem("token");
-      const response = await fetch(
-        `http://127.0.0.1:8000/licenses/revoke-license/${licenseId}/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Token ${token}`,
-          },
-          body: JSON.stringify({ allocated_to: email, license: licenseId }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      await fetchData();
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
-  const handleRowClick = async (licenseId) => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await fetch(
-        `http://127.0.0.1:8000/licenses/${licenseId}/history/`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Token ${token}`,
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const history = await response.json();
-      setSelectedLicenseHistory({
-        licenseId: licenseId,
-        history: history,
-        // history: licenseReportData,
-      });
-      setShowHistoryModal(true);
-    } catch (error) {
-      console.error("Error fetching license history:", error);
-    }
-
-    // Simulate API call with setTimeout
-    // setTimeout(() => {
-    //   setSelectedLicenseHistory({
-    //     licenseId: licenseId,
-    //     history: licenseReportData,
-    //   });
-    //   setShowHistoryModal(true);
-    // }, 1000);
-  };
 
   const {
     getTableProps,
@@ -232,12 +134,7 @@ function SimpleTable() {
               {page.map((row) => {
                 prepareRow(row);
                 return (
-                  <tr
-                    {...row.getRowProps()}
-                    key={row.id}
-                    onClick={() => handleRowClick(row.original.license_id)}
-                    style={{ cursor: "pointer" }}
-                  >
+                  <tr {...row.getRowProps()} key={row.id}>
                     {row.cells.map((cell) => (
                       <td {...cell.getCellProps()} key={cell.column.id}>
                         {cell.render("Cell")}
@@ -264,23 +161,8 @@ function SimpleTable() {
           </div>
         </>
       )}
-      {showLicensePopup && (
-        <LicenseForm
-          onClose={() => setShowLicensePopup(false)}
-          rowData={selectedRow}
-          handleSubmit={handleSubmit}
-          handleRevoke={handleRevoke}
-        />
-      )}
-      {showHistoryModal && (
-        <LicenseHistoryModal
-          licenseId={selectedLicenseHistory.licenseId}
-          history={selectedLicenseHistory.history}
-          onClose={() => setShowHistoryModal(false)}
-        />
-      )}
     </div>
   );
 }
 
-export default SimpleTable;
+export default ReportsTable;
