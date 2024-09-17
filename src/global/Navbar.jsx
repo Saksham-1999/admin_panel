@@ -12,8 +12,6 @@ import NotificationPopup from "../notificationPopup/NotificationPopup";
 import ChangePassword from "../popup/ChangePassword/ChangePassword";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import { UserData } from "../mockData";
-import { useUser } from "../hooks/UserData";
 
 function NotificationBadge({ count }) {
   return (
@@ -35,11 +33,36 @@ function Navbar() {
   const triggerRef = useRef();
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
+  const [user, setUser] = useState([]);
 
-  const { user } = useUser();
+  const fetchUser = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const userId = localStorage.getItem("userId");
+      const response = await fetch(
+        `http://127.0.0.1:8000/profile/user_id/${userId}/`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        const userData = await response.json();
+        setUser(userData[0]);
+      } else {
+        console.error("Failed to fetch user data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
-  // for dummy data only
-  // const user = UserData;
+  useEffect(() => {
+    fetchUser();
+  }, [])
 
   const handleClick = () => {
     setChangePasswordPopup(false);
@@ -119,7 +142,7 @@ function Navbar() {
 
       <div className={styles.userDiv} onClick={toggleDropdown}>
         <div className={styles.user}>
-          <img src={user?.profile || userIcon} alt="user icon" />
+          <img src={user?.profile || userIcon} alt="user profile" />
         </div>
         <div className={styles.userinfo}>
           <h5>{user?.full_name || "User Name"}</h5>

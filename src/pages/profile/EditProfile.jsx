@@ -1,22 +1,68 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../global/Navbar";
 import Sidebar from "../../global/Sidebar";
 import Workspace from "../../global/Workspace";
-import { useUser } from "../../hooks/UserData";
-import { UserData } from "../../mockData";
 import { validateEmail } from "../../Validation";
+import { toast } from "react-toastify";
 
 function EditProfile() {
   const [isLoading, setIsLoading] = useState(false);
-    const { user } = useUser();
-  // const [user, setUser] = useState(UserData);
+  const [user, setUser] = useState({});
+
   const [formData, setFormData] = useState({
-    email: user?.email,
-    full_name: user?.full_name,
-    phone_number: user?.phone_number,
-    address: user?.address,
-    organization: user?.organization,
+    email: '',
+    full_name: '',
+    phone_number: '',
+    address: '',
+    organization: '',
   });
+
+  const fetchUser = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const userId = localStorage.getItem("userId");
+      const response = await fetch(
+        `http://127.0.0.1:8000/profile/user_id/${userId}/`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        const userData = await response.json();
+        setUser(userData[0]);
+      } else {
+        console.error("Failed to fetch user data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, [])
+
+
+
+
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        email: user.email || '',
+        full_name: user.full_name || '',
+        phone_number: user.phone_number || '',
+        address: user.address || '',
+        organization: user.organization || '',
+      })
+    }
+  }, [])
+
+  console.log("form Data------------", formData)
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -39,29 +85,34 @@ function EditProfile() {
     try {
       // Make API call to update user profile
       const token = localStorage.getItem("token");
-      const response = await fetch("http://127.0.0.1:8000/profile/update/", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${token}`,
-        },
-        body: JSON.stringify(formData),
-      });
+      const userId = localStorage.getItem("userId");
+      console.log("id----------", userId)
+      const response = await fetch(
+        `http://127.0.0.1:8000/user-profiles/user_id/${userId}/`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (response.ok) {
         const updatedUser = await response.json();
         // Update the user state if needed
-        setUser(updatedUser);
+        setUser(updatedUser[0]);
         setIsLoading(false);
-        alert("Profile updated successfully!");
+        toast.success("Profile updated successfully!");
       } else {
         setIsLoading(false);
-        alert("Failed to update profile. Please try again.");
+        toast.error("Failed to update profile. Please try again.");
       }
     } catch (error) {
       setIsLoading(false);
       console.error("Error updating profile:", error);
-      alert("An error occurred while updating the profile.");
+      toast.error("An error occurred while updating the profile.");
     }
   };
 

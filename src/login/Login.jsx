@@ -73,7 +73,7 @@ const Login = () => {
       console.log(data);
       if (data.token) {
         login(data.token);
-        localStorage.setItem("userId", data.user.id);
+        localStorage.setItem("userId", data?.user?.id);
         toast.success("Login successful!");
         navigate("/dashboard");
       } else {
