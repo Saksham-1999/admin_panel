@@ -1,37 +1,35 @@
 // src/components/LicenseForm.js
-import React, { useState, useEffect } from 'react';
-import styles from './LicenseForm.module.css';
-import { validateEmail } from '../../Validation';
+import React, { useState, useEffect } from "react";
+import styles from "./LicenseForm.module.css";
+import { validateEmail } from "../../Validation";
 
 const LicenseForm = ({ onClose, rowData, handleSubmit, handleRevoke }) => {
-  const [email, setEmail] = useState('');
-  const [licenseId, setLicenseId] = useState('');
-  const [pluginId, setPluginId] = useState('');
-  const [error, setError] = useState('');
-  const [buttonText, setButtonText] = useState('');
+  const [email, setEmail] = useState("");
+  const [licenseId, setLicenseId] = useState("");
+  const [pluginId, setPluginId] = useState("");
+  const [error, setError] = useState("");
+  const [buttonText, setButtonText] = useState("");
 
   useEffect(() => {
     if (rowData) {
-      setPluginId(rowData.plugins[0]?.plugin_id || '');
-      setLicenseId(rowData.license_id || '');
-      setButtonText(rowData.buttonText || '');
+      setPluginId(rowData.plugins[0]?.plugin_id || "");
+      setLicenseId(rowData.license_id || "");
+      setButtonText(rowData.buttonText || "");
       if (!rowData.allocated_to) {
-        setError('');
+        setError("");
       } else if (!validateEmail(rowData.allocated_to)) {
-        setError('Enter valid email');
+        setError("Enter valid email");
       } else {
-        setEmail(rowData.allocated_to || '');
-        setError('');
+        setEmail(rowData.allocated_to || "");
+        setError("");
       }
     }
   }, [rowData]);
 
-
-
   const onSubmit = (e) => {
     e.preventDefault();
     if (!validateEmail(email)) {
-      setError('Enter a valid email');
+      setError("Enter a valid email");
       return;
     }
     handleSubmit(email, licenseId);
@@ -40,7 +38,7 @@ const LicenseForm = ({ onClose, rowData, handleSubmit, handleRevoke }) => {
   const onRevoke = (e) => {
     e.preventDefault();
     if (!validateEmail(email)) {
-      setError('Enter a valid email');
+      setError("Enter a valid email");
       return;
     }
     handleRevoke(email, licenseId);
@@ -49,7 +47,9 @@ const LicenseForm = ({ onClose, rowData, handleSubmit, handleRevoke }) => {
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        <button className={styles.closeButton} onClick={onClose}>×</button>
+        <button className={styles.closeButton} onClick={onClose}>
+          ×
+        </button>
         <h2 className={styles.title}>{buttonText} License</h2>
         <div className={styles.inputContainer}>
           <input
@@ -57,26 +57,51 @@ const LicenseForm = ({ onClose, rowData, handleSubmit, handleRevoke }) => {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            style={{ backgroundColor: buttonText === 'Revoke' ? '#e0e0e0' : 'white' }}
+            style={{
+              backgroundColor: buttonText === "Revoke" ? "#e0e0e0" : "white",
+            }}
             className={styles.input}
-            readOnly={buttonText === 'Revoke'}
+            readOnly={buttonText === "Revoke"}
           />
-          {error && <div style={{ color: 'red', marginBottom: '10px', marginLeft: '10px', top: '0' }}>{error}</div>}
+          {error && (
+            <div
+              style={{
+                color: "red",
+                marginBottom: "10px",
+                marginLeft: "10px",
+                top: "0",
+              }}
+            >
+              {error}
+            </div>
+          )}
           <input
             type="text"
             placeholder="License ID"
             value={licenseId}
-            style={{ backgroundColor: '#e0e0e0' }}
+            style={{ backgroundColor: "#e0e0e0" }}
             className={styles.input}
             readOnly
           />
         </div>
         <div className={styles.buttonContainer}>
-          {buttonText === 'Allocate' && (
-            <button type="submit" className={styles.sendButton} onClick={onSubmit}>Allocate</button>
+          {buttonText === "Allocate" && (
+            <button
+              type="submit"
+              className={styles.sendButton}
+              onClick={onSubmit}
+            >
+              Allocate
+            </button>
           )}
-          {buttonText === 'Revoke' && (
-            <button type="submit" className={styles.sendButton} onClick={onRevoke}>Revoke</button>
+          {buttonText === "Revoke" && (
+            <button
+              type="submit"
+              className={styles.sendButton}
+              onClick={onRevoke}
+            >
+              Revoke
+            </button>
           )}
         </div>
       </div>

@@ -87,16 +87,8 @@ function SimpleTable() {
     }
   };
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
-
   useEffect(() => {
-    // Simulate API call with setTimeout
-    setTimeout(() => {
-      setData(mockData);
-      setLoading(false);
-    }, 1000);
+    fetchData();
   }, []);
 
   const handleSubmit = async (email, licenseId) => {
@@ -160,40 +152,39 @@ function SimpleTable() {
     if (event.target.tagName === 'BUTTON') {
       return; // Exit the function early if it's a button click
     }
-    // try {
-    //   const token = localStorage.getItem("token");
-    //   const response = await fetch(
-    //     `http://127.0.0.1:8000/licenses/${licenseId}/history/`,
-    //     {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Authorization: `Token ${token}`,
-    //       },
-    //     }
-    //   );
-    //   if (!response.ok) {
-    //     throw new Error("Network response was not ok");
-    //   }
-    //   const history = await response.json();
-    //   setSelectedLicenseHistory({
-    //     licenseId: licenseId,
-    //     history: history,
-    //     // history: licenseReportData,
-    //   });
-    //   setShowHistoryModal(true);
-    // } catch (error) {
-    //   console.error("Error fetching license history:", error);
-    // }
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `http://127.0.0.1:8000/licenses/${licenseId}/history/`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const history = await response.json();
+      setSelectedLicenseHistory({
+        licenseId: licenseId,
+        history: history,
+      });
+      setShowHistoryModal(true);
+    } catch (error) {
+      console.error("Error fetching license history:", error);
+    }
 
     // Simulate API call with setTimeout
 
-    setTimeout(() => {
-      setSelectedLicenseHistory({
-        licenseId: licenseId,
-        history: licenseReportData,
-      });
-      setShowHistoryModal(true);
-    }, 1000);
+    // setTimeout(() => {
+    //   setSelectedLicenseHistory({
+    //     licenseId: licenseId,
+    //     history: licenseReportData,
+    //   });
+    //   setShowHistoryModal(true);
+    // }, 1000);
   };
 
   const {
